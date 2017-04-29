@@ -3,19 +3,37 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-// level * scalar + constant
 const calcSL = (level) => {
+  const lv        = toInteger(level.trim())
   const MIN_LEVEL = 1
   const MAX_LEVEL = 713
-  const delta = level * 0.1 + 10
-  // const darkmoonDelta = level * 0.2 + 
-  const lo = toInteger(Math.max(1, level - delta))
-  const hi = toInteger(Math.min(713, level + delta))
-  return {
-    coop: [lo, hi],
-    darkmoon: [MIN_LEVEL, hi],
-    darkwraith: [lo, MAX_LEVEL],
+  if (!lv || lv < MIN_LEVEL || lv > MAX_LEVEL) {
+    return {}
   }
+  const delta       = (lv * 0.1) + 10
+  const dmDeltaLow  = (lv * 0.2) + 50
+  const dmDeltaHigh = (lv * 0.1) + 10
+  const lo          = Math.max(MIN_LEVEL, lv - delta)
+  const hi          = Math.min(MAX_LEVEL, lv + delta)
+  const dmLow       = Math.max(MIN_LEVEL, lv - dmDeltaLow)
+  const dmHigh      = Math.min(MAX_LEVEL, lv + dmDeltaHigh)
+  return [
+    {
+      name: 'Co-Op/Gravelord/Dragonbro',
+      low: lo,
+      high: hi,
+    },
+    {
+      name: 'Darkwraith/Forest Hunter',
+      low: lo,
+      high: MAX_LEVEL,
+    },
+    {
+      name: 'Darkmoon',
+      low: dmLow,
+      high: dmHigh,
+    },
+  ]
 }
 
 class App extends Component {
@@ -27,8 +45,8 @@ class App extends Component {
   render() {
     const {levels} = this.state
 
-    const displayLevels = map(levels, (v, k) => (
-      <li key={k}>{k}: {v[0]} - {v[1]}</li>
+    const displayLevels = map(levels, (lv) => (
+      <li key={lv.name}>{lv.name}: {lv.low} - {lv.high}</li>
     ))
 
     return (
