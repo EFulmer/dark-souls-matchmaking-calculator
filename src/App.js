@@ -1,13 +1,16 @@
+import { map, toInteger } from 'lodash';
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+// level * scalar + constant
 const calcSL = (level) => {
   const MIN_LEVEL = 1
   const MAX_LEVEL = 713
   const delta = level * 0.1 + 10
-  const lo = Math.max(1, level - delta)
-  const hi = Math.min(713, level + delta)
+  // const darkmoonDelta = level * 0.2 + 
+  const lo = toInteger(Math.max(1, level - delta))
+  const hi = toInteger(Math.min(713, level + delta))
   return {
     coop: [lo, hi],
     darkmoon: [MIN_LEVEL, hi],
@@ -16,7 +19,18 @@ const calcSL = (level) => {
 }
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
+
   render() {
+    const {levels} = this.state
+
+    const displayLevels = map(levels, (v, k) => (
+      <li key={k}>{k}: {v[0]} - {v[1]}</li>
+    ))
+
     return (
       <div className="App">
         <div className="App-header">
@@ -24,16 +38,18 @@ class App extends Component {
           <h2>Welcome to React</h2>
         </div>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <form action="#" onSubmit={event => {
           const { target } = event
           const value = target.getElementsByTagName('input')[0].value
-          alert(calcSL(value).toString())
+          this.setState({levels: calcSL(value)})
         }}>
           <input type="text"/>
           <button type="submit">Who can I PvP with?</button>
         </form>
+        <ul>
+          {displayLevels}
+        </ul>
       </div>
     );
   }
