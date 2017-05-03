@@ -4,9 +4,9 @@ import logo from './logo.svg';
 import './App.css';
 
 const calcSL = (level) => {
-  const lv        = toInteger(level.trim())
   const MIN_LEVEL = 1
   const MAX_LEVEL = 713
+  const lv        = toInteger(level.trim())
   if (!lv || lv < MIN_LEVEL || lv > MAX_LEVEL) {
     return {}
   }
@@ -43,16 +43,16 @@ class App extends Component {
   }
 
   render() {
-    const {levels} = this.state
+    const { levels } = this.state
 
     const displayLevels = map(levels, (lv) => (
-      <li key={lv.name}>{lv.name}: {lv.low} - {lv.high}</li>
+      <li key={ lv.name }>{ lv.name }: { lv.low } - { lv.high }</li>
     ))
 
     return (
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          <img src={ logo } className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
         <p className="App-intro">
@@ -60,13 +60,13 @@ class App extends Component {
         <form action="#" onSubmit={event => {
           const { target } = event
           const value = target.getElementsByTagName('input')[0].value
-          this.setState({levels: calcSL(value)})
+          this.setState( {levels: calcSL(value) } )
         }}>
           <input type="text"/>
           <button type="submit">Who can I PvP with?</button>
         </form>
         <ul>
-          {displayLevels}
+          { displayLevels }
         </ul>
       </div>
     );
