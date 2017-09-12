@@ -13,8 +13,8 @@ const calcSL = (level) => {
   const delta       = (lv * 0.1) + 10
   const dmDeltaLow  = (lv * 0.2) + 50
   const dmDeltaHigh = (lv * 0.1) + 10
-  const lo          = Math.max(MIN_LEVEL, lv - delta)
-  const hi          = Math.min(MAX_LEVEL, lv + delta)
+  const lo          = Math.ceil( Math.max(MIN_LEVEL, lv - delta) )
+  const hi          = Math.ceil( Math.min(MAX_LEVEL, lv + delta) )
   const dmLow       = Math.ceil( Math.max(MIN_LEVEL, lv - dmDeltaLow) )
   const dmHigh      = Math.ceil( Math.min(MAX_LEVEL, lv + dmDeltaHigh) )
   return [
