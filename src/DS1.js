@@ -36,9 +36,15 @@ export default class DS1 extends Component {
   render() {
     const { levels } = this.state
 
-    const displayLevels = (map(levels, (lv) => (
-      <tr><td><img src={ lv.img } width={40} height={50}/></td><td>{ lv.name }</td> <td>{ lv.low }</td> <td>{ lv.high }</td></tr>
-    )))
+    const displayLevels = (
+      (!!levels) ? 
+        <table><tr><th /> <th>Covenant</th> <th>Minimum Level</th> <th>Maximum Level</th> </tr>
+          {map(levels, (lv) => (
+            <tr><td><img src={ lv.img } width={40} height={50}/></td><td>{ lv.name }</td> <td>{ lv.low }</td> <td>{ lv.high }</td></tr>
+          ))}
+        </table>
+        : undefined
+    )
 
     return (
       <div>
@@ -50,9 +56,7 @@ export default class DS1 extends Component {
           <input type="text"/>
           <button type="submit">Who can I PvP with?</button>
         </form>
-        { displayLevels ? 
-          <table><tr><th /> <th>Covenant</th> <th>Minimum Level</th> <th>Maximum Level</th> </tr>{displayLevels}</table>
-          : undefined }
+        { displayLevels }
       </div>
     );
   }
