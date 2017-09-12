@@ -15,6 +15,7 @@ class App extends Component {
           <h2>Dark Souls Multiplayer Matchmaking Calculator</h2>
         </div>
         <p className="App-intro">
+          Enter your level, and find out the level ranges you can play with!
         </p>
         <DS1 />
       </div>
