@@ -15,8 +15,8 @@ const calcSL = (level) => {
   const dmDeltaHigh = (lv * 0.1) + 10
   const lo          = Math.max(MIN_LEVEL, lv - delta)
   const hi          = Math.min(MAX_LEVEL, lv + delta)
-  const dmLow       = Math.max(MIN_LEVEL, lv - dmDeltaLow)
-  const dmHigh      = Math.min(MAX_LEVEL, lv + dmDeltaHigh)
+  const dmLow       = Math.ceil( Math.max(MIN_LEVEL, lv - dmDeltaLow) )
+  const dmHigh      = Math.ceil( Math.min(MAX_LEVEL, lv + dmDeltaHigh) )
   return [
     {
       name: 'Co-Op/Gravelord/Dragonbro',
@@ -52,8 +52,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <img src={ logo } className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+          <h2>Dark Souls Multiplayer Matchmaking Calculator</h2>
         </div>
         <p className="App-intro">
         </p>
